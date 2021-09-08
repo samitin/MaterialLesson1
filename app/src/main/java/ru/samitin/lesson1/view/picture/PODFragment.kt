@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMainBinding
 import ru.samitin.lesson1.view.MainActivity
+import ru.samitin.lesson1.view.chips.ChipsFragment
 import ru.samitin.lesson1.viewModel.PictureOfTheDayData
 import ru.samitin.lesson1.viewModel.PODViewModel
 
@@ -94,7 +95,8 @@ class PODFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_fav -> Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
-            R.id.app_bar_search -> Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_search -> requireActivity().supportFragmentManager
+                .beginTransaction().replace(R.id.container,ChipsFragment.newInstance()).addToBackStack("").commit()
             // у нашего бургера такой вот id внутри android
             android.R.id.home-> BottomNavigationDraverFragment().show(requireActivity().supportFragmentManager,"TAG")
         }
