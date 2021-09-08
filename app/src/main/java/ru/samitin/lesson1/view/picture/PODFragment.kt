@@ -6,10 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMainBinding
 import ru.samitin.lesson1.viewModel.PictureOfTheDayData
@@ -20,6 +23,7 @@ class PODFragment : Fragment() {
     private val binding
         get()=_bainding!!
 
+    private lateinit var bottomSheetBehavior:BottomSheetBehavior <ConstraintLayout>
     private val viewModel:PODViewModel by lazy {
         ViewModelProvider(this).get(PODViewModel::class.java)
     }
@@ -38,6 +42,25 @@ class PODFragment : Fragment() {
             }
             startActivity(intent)
         }
+        bottomSheetBehavior=BottomSheetBehavior.from(binding.includeLayout.bottomSheetContainer)
+        bottomSheetBehavior.state=BottomSheetBehavior.STATE_HALF_EXPANDED
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_DRAGGING -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_COLLAPSED -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_EXPANDED -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_HIDDEN -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_SETTLING -> TODO("not implemented")
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                TODO("not implemented")
+            }
+        })
     }
     private fun renderDATA(data:PictureOfTheDayData){
         when (data){
