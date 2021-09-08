@@ -1,5 +1,7 @@
 package ru.samitin.lesson1.view.picture
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +32,12 @@ class PODFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderDATA(it) })
         viewModel.sendServerRequest()
+        binding.inputLayout.setEndIconOnClickListener {
+            val intent=Intent(Intent.ACTION_VIEW).apply {
+                data= Uri.parse("https://ru.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+            }
+            startActivity(intent)
+        }
     }
     private fun renderDATA(data:PictureOfTheDayData){
         when (data){
