@@ -39,15 +39,14 @@ class PODFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderDATA(it) })
         viewModel.sendServerRequest()
         setBottomAppBar(view)
-        binding.inputLayout.setEndIconOnClickListener {
-            val intent=Intent(Intent.ACTION_VIEW).apply {
-                data= Uri.parse("https://ru.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-            }
-            startActivity(intent)
-        }
+
         bottomSheetBehavior=BottomSheetBehavior.from(binding.includeLayout.bottomSheetContainer)
         bottomSheetBehavior.state=BottomSheetBehavior.STATE_HALF_EXPANDED
-        /*bottomSheetBehavior.addBottomSheetCallback(object :
+        searchWikipedia()
+       //createBihavior()
+    }
+    fun createBihavior(){
+        bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
@@ -63,7 +62,15 @@ class PODFragment : Fragment() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 TODO("not implemented")
             }
-        })*/
+        })
+    }
+    fun searchWikipedia(){
+        binding.inputLayout.setEndIconOnClickListener {
+            val intent=Intent(Intent.ACTION_VIEW).apply {
+                data= Uri.parse("https://ru.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+            }
+            startActivity(intent)
+        }
     }
     private fun renderDATA(data:PictureOfTheDayData){
         when (data){
