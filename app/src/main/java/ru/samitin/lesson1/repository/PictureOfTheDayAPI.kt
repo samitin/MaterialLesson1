@@ -3,13 +3,10 @@ package ru.samitin.lesson1.repository
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.text.SimpleDateFormat
+import java.util.*
 
 interface PictureOfTheDayAPI {
     @GET("planetary/apod")
     fun getPictureOfTheDay(@Query("api_key") apiKey: String): Call<PODServerResponseData>
-
-
-   /* @GET("planetary/apod")
-    fun getDescriptionOfTheDay(@Query("api_key") apiKey: String): Call<PODServerResponseData>
-*/
 }

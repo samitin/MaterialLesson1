@@ -17,6 +17,7 @@ class PODViewModel(private val liveDataToObserver:MutableLiveData<PictureOfTheDa
      fun getLiveData():LiveData<PictureOfTheDayData>{
          return liveDataToObserver
      }
+
     fun sendServerRequest(){
         liveDataToObserver.postValue(PictureOfTheDayData.Loading(null))
         val apiKey= BuildConfig.NASA_API_KEY

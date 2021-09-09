@@ -2,9 +2,13 @@ package ru.samitin.lesson1.view.picture
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,10 +19,17 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMainBinding
+import ru.samitin.lesson1.repository.PODServerResponseData
 import ru.samitin.lesson1.view.MainActivity
 import ru.samitin.lesson1.view.chips.ChipsFragment
 import ru.samitin.lesson1.viewModel.PictureOfTheDayData
 import ru.samitin.lesson1.viewModel.PODViewModel
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+
+
+import java.util.*
+import java.util.Calendar.getInstance
 
 class PODFragment : Fragment() {
     private var _bainding:FragmentMainBinding?=null
@@ -34,17 +45,51 @@ class PODFragment : Fragment() {
         return binding.root
     }
 
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val potd:PictureOfTheDayData
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderDATA(it) })
         viewModel.sendServerRequest()
         setBottomAppBar(view)
 
         bottomSheetBehavior=BottomSheetBehavior.from(binding.includeLayout.bottomSheetContainer)
-        bottomSheetBehavior.state=BottomSheetBehavior.STATE_HALF_EXPANDED
+        bottomSheetBehavior.state=BottomSheetBehavior.STATE_HIDDEN
         searchWikipedia()
        //createBihavior()
     }
+
+
+
+
+    private fun inicialiseChips(data:PODServerResponseData) {
+        binding.mainChip.setOnCheckedChangeListener {bottoView,isChecked->
+            var url:String
+            if (isChecked){
+                url= data.hdurl.toString()
+                Toast.makeText(context,"HD",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                url=data.url.toString()
+                Toast.makeText(context,"not HD",Toast.LENGTH_SHORT).show()
+            }
+            binding.imageView.load(data.url.toString()){
+                error(R.drawable.ic_load_error_vector)
+            }
+        }
+
+    }
+    fun getDate(day:Int=0):String{
+        val corentDate=SimpleDateFormat("yyyy-m-dd").format(Date())
+        val sdf=SimpleDateFormat("yyyy-m-dd")//LocalDateTime.parse(corentDate).minusDays(1).toString()
+        val calendar=Calendar.getInstance()
+        calendar.time=sdf.parse(corentDate)
+        calendar.add(Calendar.DATE,day)
+        return sdf.format(calendar.time)
+    }
+
     fun createBihavior(){
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -75,9 +120,7 @@ class PODFragment : Fragment() {
     private fun renderDATA(data:PictureOfTheDayData){
         when (data){
             is PictureOfTheDayData.Success->{
-                binding.imageView.load(data.serverResponseData.url){
-                    error(R.drawable.ic_load_error_vector)
-                }
+                inicialiseChips(data.serverResponseData)
                 binding.tvDescription.text=data.serverResponseData.explanation
             }
             is PictureOfTheDayData.Loading->{}
