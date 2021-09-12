@@ -16,4 +16,15 @@
     <color name="colorAccent">#D81B60</color>
     <color name="heading_colour">#5A4A4A</color>
     <color name="chipBackgroundColor">#D6EAC0</color>
+    <color name="colorPrimaryOrange">#ff8a80</color>
+    <color name="colorPrimaryDarkOrange">#c85a54</color>
+    <color name="colorAccentOrange">#ffbcaf</color>
+    <color name="colorSecondaryOrange">#d50000</color>
+    <color name="textColorSecondaryOrange">#bdbdbd</color>
+
+    <color name="colorPrimaryGreen">#558b2f</color>
+    <color name="colorPrimaryDarkGreen">#255d00</color>
+    <color name="colorAccentGreen">#85bb5c</color>
+    <color name="colorSecondaryGreen">#004d40</color>
+    <color name="textColorSecondaryGreen">#00251a</color>
 </resources>

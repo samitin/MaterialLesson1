@@ -2,12 +2,10 @@ package ru.samitin.lesson1.view.picture
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -21,15 +19,13 @@ import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMainBinding
 import ru.samitin.lesson1.repository.PODServerResponseData
 import ru.samitin.lesson1.view.MainActivity
-import ru.samitin.lesson1.view.chips.ChipsFragment
+import ru.samitin.lesson1.view.chips.SettingsFragment
 import ru.samitin.lesson1.viewModel.PictureOfTheDayData
 import ru.samitin.lesson1.viewModel.PODViewModel
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 
 
 import java.util.*
-import java.util.Calendar.getInstance
 
 class PODFragment : Fragment() {
     private var _bainding:FragmentMainBinding?=null
@@ -147,7 +143,7 @@ class PODFragment : Fragment() {
         when (item.itemId) {
             R.id.app_bar_fav -> Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
             R.id.app_bar_search -> requireActivity().supportFragmentManager
-                .beginTransaction().replace(R.id.container,ChipsFragment.newInstance()).addToBackStack("").commit()
+                .beginTransaction().replace(R.id.container,SettingsFragment.newInstance()).addToBackStack("").commit()
             // у нашего бургера такой вот id внутри android
             android.R.id.home-> BottomNavigationDraverFragment().show(requireActivity().supportFragmentManager,"TAG")
         }

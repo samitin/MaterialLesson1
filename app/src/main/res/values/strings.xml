@@ -6,7 +6,7 @@
     <string name="favourite">favorite</string>
     <string name="settings">Settings</string>
     <string name="search">Search</string>
-    <string name="text_veiw_text">TEXT</string>
+    <string name="text_veiw_text">ВЫБОР ТЕМЫ:</string>
     <string name="default_text">Default</string>
     <string name="entry_text">Entry</string>
     <string name="choice_text">Choice</string>
@@ -21,4 +21,6 @@
     <string name="choice_d_text">Choice D</string>
     <string name="choice_e_text">Choice E</string>
     <string name="choice_f_text">Choice F</string>
+    <string name="btn_orange_theme_text">Orange Theme</string>
+    <string name="btn_green_theme_text">Green Theme</string>
 </resources>

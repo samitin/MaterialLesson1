@@ -120,5 +120,28 @@
     <TextView
         android:text="@string/text_veiw_text"
         style="@style/heading_text_style"/>
+    <LinearLayout
+        android:id="@+id/chipGroupSelectionTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:singleLine="true"
+        app:singleSelection="true">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOrangeTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccentOrange"
+        android:text="@string/btn_orange_theme_text"
+        />
+        <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGreenTheme"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="@color/colorAccentGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_green_theme_text" />
+    </LinearLayout>
 </LinearLayout>
