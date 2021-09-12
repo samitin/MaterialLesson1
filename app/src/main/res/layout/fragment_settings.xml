@@ -21,6 +21,7 @@
             android:id="@+id/btn_theme_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/metroplex_shadow"
             android:layout_marginStart="@dimen/startMarginRowContent"
             android:backgroundTint="@color/colorPrimary"
             android:text="@string/main_theme_text" />
@@ -28,6 +29,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_theme_orange"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/azeret"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/startMarginRowContent"
             android:backgroundTint="@color/colorAccentOrange"
@@ -36,6 +38,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_theme_green"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/a"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/startMarginRowContent"
             android:backgroundTint="@color/colorAccentGreen"
