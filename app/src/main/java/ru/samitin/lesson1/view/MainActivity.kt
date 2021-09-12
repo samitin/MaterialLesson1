@@ -7,6 +7,7 @@ import android.preference.PreferenceManager
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.view.chips.MY_THEME_KEY
 import ru.samitin.lesson1.view.chips.THEME_GREEN
+import ru.samitin.lesson1.view.chips.THEME_MAIN
 import ru.samitin.lesson1.view.chips.THEME_ORANGE
 import ru.samitin.lesson1.view.picture.PODFragment
 
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (preference.getString(MY_THEME_KEY, "")== THEME_ORANGE) {
+        if (preference.getString(MY_THEME_KEY, "")== THEME_MAIN)
+            setTheme(R.style.ThemeMain)
+        else if (preference.getString(MY_THEME_KEY, "")== THEME_ORANGE) {
             setTheme(R.style.orangeTheme)
         } else if(preference.getString(MY_THEME_KEY, "")== THEME_GREEN)
             setTheme(R.style.greenTheme)

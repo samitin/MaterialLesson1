@@ -14,6 +14,7 @@ import ru.samitin.lesson1.view.PREFERENCE_NAME
 
 const val THEME_ORANGE="THEME_ORANGE"
 const val THEME_GREEN="THEME_GREEN"
+const val THEME_MAIN="THEME_MAIN"
 const val MY_THEME_KEY="MY_THEME_KEY"
 
 class SettingsFragment:Fragment() {
@@ -57,27 +58,29 @@ class SettingsFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.chipGroup.setOnCheckedChangeListener{childGroup,position->
-            Toast.makeText(context,"Click $position",Toast.LENGTH_SHORT).show()
-        }
-        binding.chipWithClose.setOnCloseIconClickListener {
-            Toast.makeText(context,"Click on chipWithClose",Toast.LENGTH_SHORT).show()
-        }
-        binding.btnOrangeTheme.setOnClickListener {
-                Toast.makeText(context,"Click btnOrangeTheme",Toast.LENGTH_SHORT).show()
-                preference.edit().putString(MY_THEME_KEY, THEME_ORANGE).apply()
-                requireActivity().recreate()
-        }
-        binding.btnGreenTheme.setOnClickListener {
-                Toast.makeText(context,"Click btnGreenTheme",Toast.LENGTH_SHORT).show()
-                preference.edit().putString(MY_THEME_KEY, THEME_GREEN).apply()
-                requireActivity().recreate()
+binding.includeChips.chipGroup.setOnCheckedChangeListener{childGroup,position->
+    Toast.makeText(context,"Click $position",Toast.LENGTH_SHORT).show()
+}
+ binding.btnThemeMain.setOnClickListener {
+    Toast.makeText(context,"Click btnMainTheme",Toast.LENGTH_SHORT).show()
+    preference.edit().putString(MY_THEME_KEY, THEME_MAIN).apply()
+    requireActivity().recreate()
+}
+binding.btnThemeOrange.setOnClickListener {
+        Toast.makeText(context,"Click btnOrangeTheme",Toast.LENGTH_SHORT).show()
+        preference.edit().putString(MY_THEME_KEY, THEME_ORANGE).apply()
+        requireActivity().recreate()
+}
+binding.btnThemeGreen.setOnClickListener {
+        Toast.makeText(context,"Click btnGreenTheme",Toast.LENGTH_SHORT).show()
+        preference.edit().putString(MY_THEME_KEY, THEME_GREEN).apply()
+        requireActivity().recreate()
 
-        }
-    }
-    companion object {
-        fun newInstance() = SettingsFragment()
-    }
+}
+}
+companion object {
+fun newInstance() = SettingsFragment()
+}
 
 
 }

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Lesson1" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="ThemeMain" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,6 +14,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="bottomAppBarStyle">@style/bottomAppBarStyleMain</item>
     </style>
     <style name="CustomOutlineBox" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="counterEnabled">true</item>
@@ -24,7 +25,9 @@
         <item name="endIconMode">custom</item>
         <item name="endIconDrawable">@drawable/ic_wikipedia</item>
     </style>
-
+    <style name="bottomAppBarStyleMain">
+        <item name="backgroundTint">@color/colorSecondaryGreen</item>
+    </style>
     <style name="heading_text_style">
         <item name="android:textColor">@color/heading_colour</item>
         <item name="android:textSize">@dimen/heading_size</item>
