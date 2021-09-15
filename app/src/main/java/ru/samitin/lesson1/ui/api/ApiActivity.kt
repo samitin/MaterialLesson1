@@ -14,6 +14,11 @@ class ApiActivity : AppCompatActivity() {
         setContentView(bilder.root)
 
         bilder.viewPager.adapter=ViewPagerAdapter(supportFragmentManager)
-
+        bilder.tabLayout.setupWithViewPager(bilder.viewPager)
+        bilder.tabLayout.apply {
+            getTabAt(0)?.setIcon(R.drawable.ic_earth)
+            getTabAt(1)?.setIcon(R.drawable.ic_mars)
+            getTabAt(2)?.setIcon(R.drawable.ic_system)
+        }
     }
 }
