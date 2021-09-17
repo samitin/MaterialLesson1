@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import coil.api.load
+import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
@@ -47,7 +47,6 @@ class PODFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val potd:PictureOfTheDayData
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderDATA(it) })
         viewModel.sendServerRequest()
         setBottomAppBar(view)
@@ -72,9 +71,10 @@ class PODFragment : Fragment() {
                 url=data.url.toString()
                 Toast.makeText(context,"not HD",Toast.LENGTH_SHORT).show()
             }
-            binding.imageView.load(url,{
+
+            binding.imageView.load(url){
                 error(R.drawable.ic_load_error_vector)
-            })
+            }
         }
 
     }
@@ -118,6 +118,7 @@ class PODFragment : Fragment() {
         when (data){
             is PictureOfTheDayData.Success->{
                 inicialiseChips(data.serverResponseData)
+                data.serverResponseData
                 binding.tvDescription.text=data.serverResponseData.explanation
             }
             is PictureOfTheDayData.Loading->{}

@@ -10,8 +10,4 @@ class CustomImageView @JvmOverloads constructor(context: Context,attr:AttributeS
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec)
     }
-
-    fun load(url: String, function: () -> Nothing) {
-
-    }
 }
