@@ -2,6 +2,7 @@ package ru.samitin.lesson1.ui.api
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.samitin.lesson1.R
 
@@ -20,12 +21,14 @@ class ApiBottomActivity : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_view_mars -> {
+
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.activity_api_bottom_container, MarsFragment())
                         .commitAllowingStateLoss()
                     true
                 }
                 R.id.bottom_view_weather -> {
+
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.activity_api_bottom_container, WeatherFragment())
                         .commitAllowingStateLoss()
@@ -35,6 +38,11 @@ class ApiBottomActivity : AppCompatActivity() {
             }
         }
         bottomNV.selectedItemId = R.id.bottom_view_earth
+        bottomNV.getOrCreateBadge(R.id.bottom_view_earth).apply {
+            number = 100;
+            badgeGravity = BadgeDrawable.TOP_END
+            maxCharacterCount = 3
+        }
 
     }
 
