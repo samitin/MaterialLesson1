@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/greenTheme">
-        <activity android:name=".ui.api.ApiActivity">
+        <activity android:name=".ui.api.ApiActivity"/>
+        <activity android:name=".ui.api.ApiBottomActivity"/>
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

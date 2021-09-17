@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMainBinding
 import ru.samitin.lesson1.repository.PODServerResponseData
+import ru.samitin.lesson1.ui.api.ApiBottomActivity
 import ru.samitin.lesson1.view.MainActivity
 import ru.samitin.lesson1.view.chips.SettingsFragment
 import ru.samitin.lesson1.viewModel.PictureOfTheDayData
@@ -71,9 +72,9 @@ class PODFragment : Fragment() {
                 url=data.url.toString()
                 Toast.makeText(context,"not HD",Toast.LENGTH_SHORT).show()
             }
-            binding.imageView.load(data.url.toString()){
+            binding.imageView.load(url,{
                 error(R.drawable.ic_load_error_vector)
-            }
+            })
         }
 
     }
@@ -141,9 +142,11 @@ class PODFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_fav -> Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
-            R.id.app_bar_search -> requireActivity().supportFragmentManager
-                .beginTransaction().replace(R.id.container,SettingsFragment.newInstance()).addToBackStack("").commit()
+            R.id.app_bar_fav ->{activity?.let { startActivity(Intent(it, ApiBottomActivity::class.java))
+                Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
+            }
+            }
+            R.id.app_bar_search -> requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container,SettingsFragment.newInstance()).addToBackStack("").commit()
             // у нашего бургера такой вот id внутри android
             android.R.id.home-> BottomNavigationDraverFragment().show(requireActivity().supportFragmentManager,"TAG")
         }
