@@ -64,4 +64,12 @@
     <style name="bottomAppBarStyleGreen">
         <item name="backgroundTint">@color/colorSecondaryGreen</item>
     </style>
+    <style name="weatherTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_text_weather</item>
+        <item name="android:layout_marginEnd">@dimen/margin_text_weather</item>
+        <item name="android:layout_marginTop">@dimen/margin_text_weather</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

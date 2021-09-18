@@ -1,38 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="bottom|center"
 
-    <androidx.appcompat.widget.AppCompatImageView
+    android:gravity="center">
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/bg_system" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="100dp"
-        android:gravity="center">
-
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/swipe_indicator_passive" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/swipe_indicator_passive" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/swipe_indicator_active" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/conteinerWeather"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:text="Солнучные бури:"
+                style="@style/weatherTextStyle"
+                android:gravity="center_horizontal"
+                android:textSize="40sp"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/weatherTextInfo"
+                style="@style/weatherTextStyle" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
     </LinearLayout>
-</FrameLayout>

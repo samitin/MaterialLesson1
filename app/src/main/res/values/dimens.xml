@@ -5,5 +5,6 @@
     <dimen name="topMarginRowContent">16dp</dimen>
     <dimen name="startMarginRowContent">16dp</dimen>
     <dimen name="endMarginRowContent">16dp</dimen>
+    <dimen name="margin_text_weather">10dp</dimen>
 
 </resources>

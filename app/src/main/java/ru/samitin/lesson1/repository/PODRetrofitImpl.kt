@@ -1,26 +1,31 @@
 package ru.samitin.lesson1.repository
 
 import com.google.gson.GsonBuilder
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
+
 
 class PODRetrofitImpl {
     private val baseUrl = "https://api.nasa.gov/"
 
-    fun getRetrofitImpl(): PictureOfTheDayAPI {
-        val podRetrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
+    private val api by lazy {
+        Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .client(createOkHttpClient(PODInterceptor()))
-            .build()
-        return podRetrofit.create(PictureOfTheDayAPI::class.java)
+            //.client(createOkHttpClient(PODInterceptor()))
+            .build().create(RetrofitAPI::class.java)
     }
 
-    private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
+
+    fun getPictureOfTheDay(apiKey: String, podCallback: Callback<PODServerResponseData>) {
+        api.getPictureOfTheDay(apiKey).enqueue(podCallback)
+    }
+
+    fun getSolarFlairOfTheDay(apiKey: String, podCallback: Callback<List<SolarFlairResponseData>>,startDate : String="2021-09-07") {
+        api.getSolarFlair(apiKey).enqueue(podCallback)
+    }
+
+    /*private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(interceptor)
         httpClient.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -33,6 +38,6 @@ class PODRetrofitImpl {
         override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
             return chain.proceed(chain.request())
         }
-    }
+    }*/
 
 }
