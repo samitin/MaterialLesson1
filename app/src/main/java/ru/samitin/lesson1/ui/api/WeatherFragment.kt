@@ -38,15 +38,16 @@ class WeatherFragment : Fragment(){
             is SolarFlairData.Success ->{
                 binding.conteinerWeather.show()
                 binding.loadingLayout.hide()
+                Toast.makeText(context,"Succes",Toast.LENGTH_SHORT).show()
                 val infoAll=StringBuilder()
                 for (info in data.serverResponseData)
                     infoAll.append(getSolarFairInfo(info))
                  binding.weatherTextInfo.text=infoAll.toString()
-                binding.conteinerWeather.hide()
-                binding.loadingLayout.show()
             }
             is SolarFlairData.Loading ->{
-
+                binding.conteinerWeather.hide()
+                binding.loadingLayout.show()
+                Toast.makeText(context,"Loading",Toast.LENGTH_SHORT).show()
             }
             is SolarFlairData.Error ->{
                 binding.conteinerWeather.hide()
