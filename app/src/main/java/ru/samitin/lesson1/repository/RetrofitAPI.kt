@@ -3,8 +3,7 @@ package ru.samitin.lesson1.repository
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.text.SimpleDateFormat
-import java.util.*
+import ru.samitin.lesson1.repository.marsWeather.MarsPhotosResponseData
 
 interface RetrofitAPI {
     @GET("planetary/apod")
@@ -22,4 +21,10 @@ interface RetrofitAPI {
         @Query("api_key") apiKey: String,
         @Query("startDate") startDate : String="2021-09-07",
     ): Call<List<SolarFlairResponseData>>
+
+
+    @GET("mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2")
+    fun getMarsPhoto(
+        @Query("api_key") apiKey: String
+    ):Call<MarsPhotosResponseData>
 }

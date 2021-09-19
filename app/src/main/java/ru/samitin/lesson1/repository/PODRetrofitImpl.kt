@@ -4,6 +4,8 @@ import com.google.gson.GsonBuilder
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.samitin.lesson1.repository.marsWeather.MarsPhoto
+import ru.samitin.lesson1.repository.marsWeather.MarsPhotosResponseData
 
 
 class PODRetrofitImpl {
@@ -22,8 +24,13 @@ class PODRetrofitImpl {
     }
 
     fun getSolarFlairOfTheDay(apiKey: String, podCallback: Callback<List<SolarFlairResponseData>>,startDate : String="2021-09-07") {
-        api.getSolarFlair(apiKey).enqueue(podCallback)
+        api.getSolarFlair(apiKey,startDate).enqueue(podCallback)
     }
+
+    fun getMarsPhotos(apiKey: String,podCallBack: Callback<MarsPhotosResponseData>){
+        api.getMarsPhoto(apiKey).enqueue(podCallBack)
+    }
+
 
     /*private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         val httpClient = OkHttpClient.Builder()

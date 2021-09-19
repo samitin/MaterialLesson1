@@ -32,4 +32,5 @@
     <color name="myColorOne">#FFff4081</color>
     <color name="myColorSecond">#FF76ff03</color>
     <color name="myColorHack">#FFfff3e0</color>
+    <color name="loadingBackground">#999</color>
 </resources>

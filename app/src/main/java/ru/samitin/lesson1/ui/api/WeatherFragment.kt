@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.samitin.lesson1.R
@@ -29,24 +30,34 @@ class WeatherFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getLiveData().observe(viewLifecycleOwner,{
-            renderData(it)})
+        viewModel.getLiveData().observe(viewLifecycleOwner,{ renderData(it)})
         viewModel.sendServerRequest()
     }
     private fun renderData(data : SolarFlairData){
         when(data){
             is SolarFlairData.Success ->{
+                binding.conteinerWeather.show()
+                binding.loadingLayout.hide()
                 val infoAll=StringBuilder()
                 for (info in data.serverResponseData)
                     infoAll.append(getSolarFairInfo(info))
                  binding.weatherTextInfo.text=infoAll.toString()
-
-
+                binding.conteinerWeather.hide()
+                binding.loadingLayout.show()
             }
             is SolarFlairData.Loading ->{
 
             }
             is SolarFlairData.Error ->{
+                binding.conteinerWeather.hide()
+                binding.loadingLayout.show()
+                Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show()
+                binding.conteinerWeather.showSnackBar(
+                    getString(R.string.error),
+                    getString(R.string.reload)
+                ) {
+                    viewModel.sendServerRequest()
+                }
 
             }
         }

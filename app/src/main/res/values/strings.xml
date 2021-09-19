@@ -24,4 +24,6 @@
     <string name="btn_orange_theme_text">Orange</string>
     <string name="btn_green_theme_text">Green</string>
     <string name="main_theme_text">Main</string>
+    <string name="error">Error!!!</string>
+    <string name="reload">Reload</string>
 </resources>
