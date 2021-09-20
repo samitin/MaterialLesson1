@@ -74,6 +74,7 @@ class PODFragment : Fragment() {
 
             binding.imageView.load(url){
                 error(R.drawable.ic_load_error_vector)
+                placeholder(R.drawable.progres_image_animation)
             }
         }
 
@@ -121,7 +122,9 @@ class PODFragment : Fragment() {
                 data.serverResponseData
                 binding.tvDescription.text=data.serverResponseData.explanation
             }
-            is PictureOfTheDayData.Loading->{}
+            is PictureOfTheDayData.Loading->{
+                binding.imageView.load(R.drawable.progres_image_animation){}
+            }
             is PictureOfTheDayData.Error->{}//TODO HW
         }
     }
