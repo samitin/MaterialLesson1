@@ -70,7 +70,10 @@ class MarsFragment : Fragment(){
             val dateText = MaterialTextView(requireContext())
             dateText.text = "Дата земли : ${marsPhoto.earthDate}"
             val image = AppCompatImageView(requireContext())
-            image.load(marsPhoto.imgSrc)
+            image.load(marsPhoto.imgSrc){
+                error(R.drawable.ic_load_error_vector)
+                placeholder(R.drawable.progres_image_animation)
+            }
             binding.conteinerMarsPhotos.addView(image)
             binding.conteinerMarsPhotos.addView(dateText)
         }

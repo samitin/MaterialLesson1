@@ -17,6 +17,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMainBinding
+import ru.samitin.lesson1.databinding.FragmentMainStartBinding
 import ru.samitin.lesson1.repository.PODServerResponseData
 import ru.samitin.lesson1.ui.api.ApiBottomActivity
 import ru.samitin.lesson1.view.MainActivity
@@ -29,7 +30,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class PODFragment : Fragment() {
-    private var _bainding:FragmentMainBinding?=null
+    private var _bainding:FragmentMainStartBinding?=null
     private val binding
         get()=_bainding!!
 
@@ -38,7 +39,7 @@ class PODFragment : Fragment() {
         ViewModelProvider(this).get(PODViewModel::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _bainding= FragmentMainBinding.inflate(inflater,container,false)
+        _bainding= FragmentMainStartBinding.inflate(inflater,container,false)
         return binding.root
     }
 
