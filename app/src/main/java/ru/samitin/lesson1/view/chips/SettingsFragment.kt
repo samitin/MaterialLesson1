@@ -26,18 +26,6 @@ class SettingsFragment:Fragment() {
             return _bindong!!
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        /*val theme=savedInstanceState?.getString(MY_THEME_KEY)
-        if (theme== THEME_ORANGE){
-            requireActivity().setTheme(R.style.orangeTheme)
-            requireActivity().recreate()
-        }else if (theme== THEME_GREEN){
-            requireActivity().setTheme(R.style.greenTheme)
-            requireActivity().recreate()
-        }*/
-        super.onCreate(savedInstanceState)
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

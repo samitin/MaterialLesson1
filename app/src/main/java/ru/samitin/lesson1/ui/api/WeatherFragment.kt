@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentWeatherBinding
-import ru.samitin.lesson1.repository.SolarFlairResponseData
-import ru.samitin.lesson1.viewModel.SolarFlairData
-import ru.samitin.lesson1.viewModel.SolarFlairViewModel
+import ru.samitin.lesson1.repository.SolarFlareResponseData
+import ru.samitin.lesson1.viewModel.AppState
+import ru.samitin.lesson1.viewModel.OneBigFatViewModel
 
 class WeatherFragment : Fragment(){
 
@@ -19,8 +19,8 @@ class WeatherFragment : Fragment(){
     private val binding
     get() = _binding!!
 
-    private val viewModel :SolarFlairViewModel by lazy {
-        ViewModelProvider(this).get(SolarFlairViewModel::class.java)
+    private val viewModel :OneBigFatViewModel by lazy {
+        ViewModelProvider(this).get(OneBigFatViewModel::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding= FragmentWeatherBinding.inflate(inflater,container,false)
@@ -31,25 +31,25 @@ class WeatherFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getLiveData().observe(viewLifecycleOwner,{ renderData(it)})
-        viewModel.sendServerRequest()
+        viewModel.getSolarFlare(MONTH)
     }
-    private fun renderData(data : SolarFlairData){
+    private fun renderData(data : AppState){
         when(data){
-            is SolarFlairData.Success ->{
+            is AppState.SuccessWeather ->{
                 binding.conteinerWeather.show()
                 binding.loadingLayout.hide()
                 Toast.makeText(context,"Succes",Toast.LENGTH_SHORT).show()
                 val infoAll=StringBuilder()
-                for (info in data.serverResponseData)
+                for (info in data.solarFlareResponseData)
                     infoAll.append(getSolarFairInfo(info))
                  binding.weatherTextInfo.text=infoAll.toString()
             }
-            is SolarFlairData.Loading ->{
+            is AppState.Loading ->{
                 binding.conteinerWeather.hide()
                 binding.loadingLayout.show()
                 Toast.makeText(context,"Loading",Toast.LENGTH_SHORT).show()
             }
-            is SolarFlairData.Error ->{
+            is AppState.Error ->{
                 binding.conteinerWeather.hide()
                 binding.loadingLayout.show()
                 Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show()
@@ -57,13 +57,13 @@ class WeatherFragment : Fragment(){
                     getString(R.string.error),
                     getString(R.string.reload)
                 ) {
-                    viewModel.sendServerRequest()
+                    viewModel.getSolarFlare(0)
                 }
 
             }
         }
     }
-    private fun getSolarFairInfo(serverResponseData: SolarFlairResponseData) : String{
+    private fun getSolarFairInfo(serverResponseData: SolarFlareResponseData) : String{
         var info=""
         with(serverResponseData){
             info="\n \n fliD = $flrID \n"+
@@ -81,5 +81,13 @@ class WeatherFragment : Fragment(){
     override fun onDestroy() {
         super.onDestroy()
         _binding=null
+    }
+    companion object {
+        fun newInstance(): WeatherFragment {
+            return WeatherFragment()
+        }
+
+        private const val TODAY = 0
+        private const val MONTH = 30
     }
 }

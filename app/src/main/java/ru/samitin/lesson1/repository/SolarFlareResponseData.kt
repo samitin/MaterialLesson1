@@ -1,6 +1,6 @@
 package ru.samitin.lesson1.repository
 
-class SolarFlairResponseData (
+class SolarFlareResponseData (
     val flrID: String,
     val beginTime: String,
     val peakTime: String,

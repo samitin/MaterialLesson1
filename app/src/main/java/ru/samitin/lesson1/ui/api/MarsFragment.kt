@@ -12,9 +12,11 @@ import coil.load
 import com.google.android.material.textview.MaterialTextView
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMarsBinding
-import ru.samitin.lesson1.repository.marsWeather.MarsPhotosResponseData
-import ru.samitin.lesson1.viewModel.MarsPhotosData
-import ru.samitin.lesson1.viewModel.MarsPhotosViewModel
+import ru.samitin.lesson1.repository.MarsPhotosServerResponseData
+import ru.samitin.lesson1.repository.MarsServerResponseData
+import ru.samitin.lesson1.utils.CustomImageView
+import ru.samitin.lesson1.viewModel.AppState
+import ru.samitin.lesson1.viewModel.OneBigFatViewModel
 
 
 class MarsFragment : Fragment(){
@@ -22,8 +24,8 @@ class MarsFragment : Fragment(){
     private val binding
         get() = _binding!!
 
-    private val viewModel : MarsPhotosViewModel by lazy {
-        ViewModelProvider(this).get(MarsPhotosViewModel::class.java)
+    private val viewModel : OneBigFatViewModel by lazy {
+        ViewModelProvider(this).get(OneBigFatViewModel::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding= FragmentMarsBinding.inflate(inflater,container,false)
@@ -37,22 +39,22 @@ class MarsFragment : Fragment(){
             renderData(it)
         })
 
-        viewModel.sendServerRequest()
+        viewModel.getMarsPicture()
     }
-    private fun renderData(data : MarsPhotosData){
+    private fun renderData(data : AppState){
         when(data){
-            is MarsPhotosData.Success ->{
+            is AppState.SuccessMars ->{
                 binding.conteinerMarsPhotos.show()
                 binding.loadingLayout.hide()
                 Toast.makeText(context,"Succes",Toast.LENGTH_SHORT).show()
                 data.serverResponseData?.let { getMarsWeatherInfo(it) }
             }
-            is MarsPhotosData.Loading ->{
+            is AppState.Loading ->{
                 Toast.makeText(context,"Loading",Toast.LENGTH_SHORT).show()
                 binding.conteinerMarsPhotos.hide()
                 binding.loadingLayout.show()
             }
-            is MarsPhotosData.Error ->{
+            is AppState.Error ->{
                 binding.conteinerMarsPhotos.hide()
                 binding.loadingLayout.show()
                 Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show()
@@ -60,16 +62,18 @@ class MarsFragment : Fragment(){
                     getString(R.string.error),
                     getString(R.string.reload)
                 ) {
-                    viewModel.sendServerRequest()
+                    viewModel.getMarsPicture()
                 }
             }
         }
     }
-    private fun getMarsWeatherInfo(serverResponseData: MarsPhotosResponseData){
-        for (marsPhoto in serverResponseData.marsPhotos!!) {
+    private fun getMarsWeatherInfo(serverResponseData: MarsPhotosServerResponseData){
+        for (marsPhoto in serverResponseData.photos!!) {
             val dateText = MaterialTextView(requireContext())
-            dateText.text = "Дата земли : ${marsPhoto.earthDate}"
-            val image = AppCompatImageView(requireContext())
+            dateText.text = "Дата земли : ${marsPhoto.earth_date}"
+            val image = CustomImageView(requireContext())
+
+            //image.layoutParams.width=200
             image.load(marsPhoto.imgSrc){
                 error(R.drawable.ic_load_error_vector)
                 placeholder(R.drawable.progres_image_animation)

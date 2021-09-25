@@ -16,14 +16,14 @@ import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
-import ru.samitin.lesson1.databinding.FragmentMainBinding
 import ru.samitin.lesson1.databinding.FragmentMainStartBinding
 import ru.samitin.lesson1.repository.PODServerResponseData
 import ru.samitin.lesson1.ui.api.ApiBottomActivity
+import ru.samitin.lesson1.ui.api.showSnackBar
 import ru.samitin.lesson1.view.MainActivity
 import ru.samitin.lesson1.view.chips.SettingsFragment
-import ru.samitin.lesson1.viewModel.PictureOfTheDayData
-import ru.samitin.lesson1.viewModel.PODViewModel
+import ru.samitin.lesson1.viewModel.AppState
+import ru.samitin.lesson1.viewModel.OneBigFatViewModel
 import java.text.SimpleDateFormat
 
 
@@ -35,8 +35,8 @@ class PODFragment : Fragment() {
         get()=_bainding!!
 
     private lateinit var bottomSheetBehavior:BottomSheetBehavior <ConstraintLayout>
-    private val viewModel:PODViewModel by lazy {
-        ViewModelProvider(this).get(PODViewModel::class.java)
+    private val viewModel:OneBigFatViewModel by lazy {
+        ViewModelProvider(this).get(OneBigFatViewModel::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _bainding= FragmentMainStartBinding.inflate(inflater,container,false)
@@ -49,7 +49,7 @@ class PODFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderDATA(it) })
-        viewModel.sendServerRequest()
+        inicialiseChips()
         setBottomAppBar(view)
 
         bottomSheetBehavior=BottomSheetBehavior.from(binding.includeLayout.bottomSheetContainer)
@@ -61,32 +61,15 @@ class PODFragment : Fragment() {
 
 
 
-    private fun inicialiseChips(data:PODServerResponseData) {
-        binding.mainChip.setOnCheckedChangeListener {bottoView,isChecked->
-            var url:String
-            if (isChecked){
-                url= data.hdurl.toString()
-                Toast.makeText(context,"HD",Toast.LENGTH_SHORT).show()
-            }
-            else{
-                url=data.url.toString()
-                Toast.makeText(context,"not HD",Toast.LENGTH_SHORT).show()
-            }
-
-            binding.imageView.load(url){
-                error(R.drawable.ic_load_error_vector)
-                placeholder(R.drawable.progres_image_animation)
+    private fun inicialiseChips() {
+        binding.chipGroupMain.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId){
+                 R.id.main_chip_today ->  { viewModel.getPODFromServer(TODAY) }
+                R.id.main_chip_yestoday ->{viewModel.getPODFromServer(YESTERDAY) }
+                R.id.main_chip_before_yestoday ->{viewModel.getPODFromServer(BEFORE_YESTERDAY) }
+                else ->viewModel.getPODFromServer(TODAY)
             }
         }
-
-    }
-    fun getDate(day:Int=0):String{
-        val corentDate=SimpleDateFormat("yyyy-m-dd").format(Date())
-        val sdf=SimpleDateFormat("yyyy-m-dd")//LocalDateTime.parse(corentDate).minusDays(1).toString()
-        val calendar=Calendar.getInstance()
-        calendar.time=sdf.parse(corentDate)
-        calendar.add(Calendar.DATE,day)
-        return sdf.format(calendar.time)
     }
 
     fun createBihavior(){
@@ -116,17 +99,34 @@ class PODFragment : Fragment() {
             startActivity(intent)
         }
     }
-    private fun renderDATA(data:PictureOfTheDayData){
+    private fun renderDATA(data:AppState){
         when (data){
-            is PictureOfTheDayData.Success->{
-                inicialiseChips(data.serverResponseData)
+            is AppState.SuccessPOD->{
+
                 data.serverResponseData
+                binding.imageView.load(data.serverResponseData.url){
+                    error(R.drawable.ic_load_error_vector)
+                    placeholder(R.drawable.progres_image_animation)
+                }
                 binding.tvDescription.text=data.serverResponseData.explanation
+                Toast.makeText(context,"Succes",Toast.LENGTH_SHORT).show()
             }
-            is PictureOfTheDayData.Loading->{
+            is AppState.Loading->{
+                Toast.makeText(context,"Load",Toast.LENGTH_SHORT).show()
                 binding.imageView.load(R.drawable.progres_image_animation){}
             }
-            is PictureOfTheDayData.Error->{}//TODO HW
+            is AppState.Error->{
+                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show()
+                binding.imageView.load(R.drawable.progres_image_animation){
+                    error(R.drawable.ic_load_error_vector)
+                }
+                binding.mainConteiner.showSnackBar(
+                    getString(R.string.error),
+                    getString(R.string.reload)
+                ) {
+                    inicialiseChips()
+                }
+            }//TODO HW
         }
     }
 
@@ -134,11 +134,7 @@ class PODFragment : Fragment() {
         super.onDestroy()
         _bainding==null
     }
-    companion object{
-        fun newInstance():PODFragment{
-            return PODFragment()
-        }
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -193,5 +189,12 @@ class PODFragment : Fragment() {
             }
         }
     }
-
+     companion object{
+        fun newInstance(): PODFragment {
+            return PODFragment()
+        }
+        private const val TODAY = 0
+        private const val YESTERDAY = 1
+        private const val BEFORE_YESTERDAY = 2
+    }
 }
