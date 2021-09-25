@@ -45,18 +45,18 @@ class MarsFragment : Fragment(){
         when(data){
             is AppState.SuccessMars ->{
                 binding.conteinerMarsPhotos.show()
-                binding.loadingLayout.hide()
+               // binding.loadingLayout.hide()
                 Toast.makeText(context,"Succes",Toast.LENGTH_SHORT).show()
                 data.serverResponseData?.let { getMarsWeatherInfo(it) }
             }
             is AppState.Loading ->{
                 Toast.makeText(context,"Loading",Toast.LENGTH_SHORT).show()
                 binding.conteinerMarsPhotos.hide()
-                binding.loadingLayout.show()
+              //  binding.loadingLayout.show()
             }
             is AppState.Error ->{
                 binding.conteinerMarsPhotos.hide()
-                binding.loadingLayout.show()
+              //  binding.loadingLayout.show()
                 Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show()
                 binding.conteinerMarsPhotos.showSnackBar(
                     getString(R.string.error),
