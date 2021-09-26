@@ -6,11 +6,19 @@
         motion:constraintSetStart="@layout/fragment_main_start"
         motion:duration="1000">
 
-        <OnClick motion:targetId="@id/wiki_button" />
-        <!--<OnSwipe
-            motion:touchAnchorId="@id/button"
-            motion:touchAnchorSide="top"
-            motion:dragDirection="dragUp"/>-->
-
+        <!-- <OnClick motion:targetId="@id/wiki_button" />-->
+        <OnSwipe
+             motion:touchAnchorId="@id/wiki_button"
+             motion:touchAnchorSide="top"
+             motion:dragDirection="dragUp"/>
+    </Transition>
+    <Transition
+        motion:constraintSetEnd="@layout/fragment_main"
+        motion:constraintSetStart="@layout/fragment_main_start"
+        motion:duration="1000">
+    <OnSwipe
+        motion:touchAnchorId="@id/input_layout"
+        motion:touchAnchorSide="left"
+        motion:dragDirection="dragEnd"/>
     </Transition>
 </MotionScene>
