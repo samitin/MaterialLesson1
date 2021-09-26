@@ -1,38 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_gravity="bottom|center"
-
-    android:gravity="center">
-    <androidx.core.widget.NestedScrollView
+    android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/conteinerWeather"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.google.android.material.textview.MaterialTextView
-                android:text="Солнучные бури:"
-                style="@style/weatherTextStyle"
-                android:gravity="center_horizontal"
-                android:textSize="40sp"/>
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/weatherTextInfo"
-                style="@style/weatherTextStyle" />
-        </LinearLayout>
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layoutDescription="@xml/fragment_weather_scene">
+              <com.google.android.material.textview.MaterialTextView
+                  android:text="Солнучные бури:"
+                  android:id="@+id/solar_flair_text"
+                  style="@style/weatherTextStyle"
+                  android:gravity="center_horizontal"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:textSize="40sp"/>
+              <androidx.appcompat.widget.AppCompatImageView
+                  android:id="@+id/imgsolar"
+                  android:layout_width="match_parent"
+                  android:layout_height="200dp"
+                  android:gravity="center"
+                  android:visibility="visible"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/solar_flair_text"
+                  android:src="@drawable/solarflair"/>
+              <com.google.android.material.textview.MaterialTextView
+                  android:id="@+id/weatherTextInfo"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/imgsolar"
+                  style="@style/weatherTextStyle" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.core.widget.NestedScrollView>
     <FrameLayout
         android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/loadingBackground"
-        android:visibility="gone"
-        tools:visibility="visible">
-
+        android:visibility="gone">
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
@@ -40,4 +56,4 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
