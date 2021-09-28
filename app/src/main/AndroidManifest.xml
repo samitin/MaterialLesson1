@@ -14,13 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/greenTheme">
 
-        <activity android:name=".view.MainActivity"/>
+        <activity android:name=".ui.api.AnimationsActivity"/>
 
         <activity android:name=".ui.api.ApiActivity" />
         <activity
             android:name=".ui.api.ApiBottomActivity"
             android:exported="true" />
-        <activity android:name=".ui.api.AnimationsActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

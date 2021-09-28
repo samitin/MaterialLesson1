@@ -42,7 +42,7 @@ class AnimationsActivity : AppCompatActivity() {
         constraintSet.clone(this, R.layout.activity_animations_bonus_end)
 
         val transition = ChangeBounds()
-        transition.interpolator = AnticipateOvershootInterpolator(1.0f)
+        transition.interpolator = AnticipateOvershootInterpolator(1.0f)//позволяет добиться анимации отскока
         transition.duration = 1200
 
         TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
@@ -55,7 +55,7 @@ class AnimationsActivity : AppCompatActivity() {
         val constraintSet=ConstraintSet()
         constraintSet.clone(this, R.layout.activity_animations_bonus_start)
         val transaction=ChangeBounds()
-        transaction.interpolator=AnticipateOvershootInterpolator(1.0f)
+        transaction.interpolator=AnticipateOvershootInterpolator(1.0f)//позволяет добиться анимации отскока
         transaction.duration=1200
         TransitionManager.beginDelayedTransition(binding.constraintContainer, transaction)
         constraintSet.applyTo(binding.constraintContainer)
