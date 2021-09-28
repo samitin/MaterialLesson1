@@ -27,4 +27,10 @@
     <string name="error">Error!!!</string>
     <string name="reload">Reload</string>
     <string name="photo_of_mars">Фото Марса</string>
+    <string name="title_activity_animations">AnimationsActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>

@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMainStartBinding
 import ru.samitin.lesson1.repository.PODServerResponseData
+import ru.samitin.lesson1.ui.api.AnimationsActivity
 import ru.samitin.lesson1.ui.api.ApiBottomActivity
 import ru.samitin.lesson1.ui.api.showSnackBar
 import ru.samitin.lesson1.view.MainActivity
@@ -150,6 +151,7 @@ class PODFragment : Fragment() {
             R.id.app_bar_search -> requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container,SettingsFragment.newInstance()).addToBackStack("").commit()
             // у нашего бургера такой вот id внутри android
             android.R.id.home-> BottomNavigationDraverFragment().show(requireActivity().supportFragmentManager,"TAG")
+
         }
         return super.onOptionsItemSelected(item)
     }
