@@ -40,9 +40,17 @@ class AnimationsActivity : AppCompatActivity() {
                 return viewRect
             }
         }
-
+        explode.excludeTarget(clickedView,true)
+        val set=TransitionSet()
+            .addTransition(explode)
+            .addTransition(Fade().addTarget(clickedView)).addListener(object : TransitionListenerAdapter(){
+                override fun onTransitionEnd(transition: Transition) {
+                    transition.removeListener(this)
+                     onBackPressed()
+                }
+            })
         explode.duration=2000
-        TransitionManager.beginDelayedTransition(binding.recyclerView,explode)
+        TransitionManager.beginDelayedTransition(binding.recyclerView,set)
         binding.recyclerView.adapter=null
     }
 
