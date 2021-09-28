@@ -25,6 +25,9 @@ class AnimationsActivity : AppCompatActivity() {
         _binding= ActivityAnimationsFabBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setFAB()
+        binding.scrollView.setOnScrollChangeListener { _, _, _, _, _ ->
+            binding.header.isSelected = binding.scrollView.canScrollVertically(-1)//устанавливает тень при скролинге
+        }
     }
 
     private fun setFAB() {
