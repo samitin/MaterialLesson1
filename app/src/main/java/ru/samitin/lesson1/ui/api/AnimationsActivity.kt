@@ -1,7 +1,5 @@
 package ru.samitin.lesson1.ui.api
 
-
-
 import android.os.Bundle
 import androidx.transition.ChangeBounds
 import android.view.animation.AnticipateOvershootInterpolator
@@ -12,9 +10,6 @@ import androidx.transition.TransitionManager
 import ru.samitin.lesson1.R
 
 import ru.samitin.lesson1.databinding.ActivityAnimationsBonusStartBinding
-
-
-
 
 class AnimationsActivity : AppCompatActivity() {
 

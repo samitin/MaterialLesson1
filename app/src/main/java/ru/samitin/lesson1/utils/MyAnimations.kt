@@ -1,12 +1,14 @@
 package ru.samitin.lesson1.utils
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
-import androidx.transition.ChangeBounds
-import androidx.transition.ChangeImageTransform
-import androidx.transition.TransitionManager
-import androidx.transition.TransitionSet
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.*
+
 
 private var isExpanded=false
 fun zoomImageView(view: ImageView){
@@ -20,3 +22,22 @@ fun zoomImageView(view: ImageView){
     view.layoutParams=params
     view.scaleType = if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
 }
+
+
+ fun showComponents(layoutEndRes:Int,constraintContainer:ConstraintLayout,context:Context) {
+
+    val constraintSet = ConstraintSet()
+    constraintSet.clone(context, layoutEndRes)
+
+     val transactionChangeBounds=ChangeBounds()
+     transactionChangeBounds.interpolator= AnticipateOvershootInterpolator(1.0f)//позволяет добиться анимации отскока
+     transactionChangeBounds.duration=1500
+
+     val transactionFade=Fade()
+     transactionFade.interpolator= AnticipateOvershootInterpolator(1.0f)//позволяет добиться анимации отскока
+     transactionFade.duration=1500
+
+     TransitionManager.beginDelayedTransition(constraintContainer, TransitionSet().addTransition(transactionChangeBounds).addTransition(transactionFade))
+     constraintSet.applyTo(constraintContainer)
+}
+
