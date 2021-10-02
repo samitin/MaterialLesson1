@@ -1,5 +1,7 @@
 package ru.samitin.lesson1.view.picture
 
+
+
 import android.content.Intent
 import android.net.Uri
 
@@ -18,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMainStartBinding
 import ru.samitin.lesson1.repository.PODServerResponseData
+import ru.samitin.lesson1.ui.api.AnimationsActivity
 import ru.samitin.lesson1.ui.api.ApiBottomActivity
 import ru.samitin.lesson1.ui.api.showSnackBar
 import ru.samitin.lesson1.view.MainActivity
@@ -27,15 +30,13 @@ import ru.samitin.lesson1.viewModel.OneBigFatViewModel
 import java.text.SimpleDateFormat
 
 
-import java.util.*
-
 class PODFragment : Fragment() {
-    private var _bainding:FragmentMainStartBinding?=null
+    private var _bainding: FragmentMainStartBinding?=null
     private val binding
         get()=_bainding!!
 
-    private lateinit var bottomSheetBehavior:BottomSheetBehavior <ConstraintLayout>
-    private val viewModel:OneBigFatViewModel by lazy {
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private val viewModel: OneBigFatViewModel by lazy {
         ViewModelProvider(this).get(OneBigFatViewModel::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,18 +44,16 @@ class PODFragment : Fragment() {
         return binding.root
     }
 
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderDATA(it) })
         inicialiseChips()
         setBottomAppBar(view)
 
-        bottomSheetBehavior=BottomSheetBehavior.from(binding.includeLayout.bottomSheetContainer)
-        bottomSheetBehavior.state=BottomSheetBehavior.STATE_HIDDEN
+       // bottomSheetBehavior=BottomSheetBehavior.from(binding.includeLayout.bottomSheetContainer)
+       // bottomSheetBehavior.state=BottomSheetBehavior.STATE_HIDDEN
         searchWikipedia()
+
        //createBihavior()
     }
 
@@ -93,13 +92,13 @@ class PODFragment : Fragment() {
     }
     fun searchWikipedia(){
         binding.inputLayout.setEndIconOnClickListener {
-            val intent=Intent(Intent.ACTION_VIEW).apply {
+            val intent= Intent(Intent.ACTION_VIEW).apply {
                 data= Uri.parse("https://ru.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             }
             startActivity(intent)
         }
     }
-    private fun renderDATA(data:AppState){
+    private fun renderDATA(data: AppState){
         when (data){
             is AppState.SuccessPOD->{
 
@@ -120,7 +119,7 @@ class PODFragment : Fragment() {
                 binding.imageView.load(R.drawable.progres_image_animation){
                     error(R.drawable.ic_load_error_vector)
                 }
-                binding.mainConteiner.showSnackBar(
+                binding.constraintConteiner.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload)
                 ) {
@@ -147,9 +146,10 @@ class PODFragment : Fragment() {
                 Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
             }
             }
-            R.id.app_bar_search -> requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container,SettingsFragment.newInstance()).addToBackStack("").commit()
+            R.id.app_bar_search -> requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container, SettingsFragment.newInstance()).addToBackStack("").commit()
             // у нашего бургера такой вот id внутри android
             android.R.id.home-> BottomNavigationDraverFragment().show(requireActivity().supportFragmentManager,"TAG")
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -161,6 +161,7 @@ class PODFragment : Fragment() {
         setHasOptionsMenu(true)
         binding.fab.setOnClickListener {
             if (isMain) {
+                showComponents(R.layout.fragment_main_end,binding.constraintConteiner,requireContext())
                 isMain = false
                 binding.bottomAppBar.navigationIcon = null // лучше придумать замену бургеру
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
@@ -172,6 +173,7 @@ class PODFragment : Fragment() {
                 )
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
             } else {
+                showComponents(R.layout.fragment_main_start,binding.constraintConteiner,requireContext())
                 isMain = true
                 binding.bottomAppBar.navigationIcon =
                     ContextCompat.getDrawable(

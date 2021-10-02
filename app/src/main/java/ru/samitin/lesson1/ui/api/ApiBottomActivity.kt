@@ -2,6 +2,7 @@ package ru.samitin.lesson1.ui.api
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.samitin.lesson1.R
@@ -16,6 +17,7 @@ class ApiBottomActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.bottom_view_earth -> {
                     supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.animator.slide_in_left, R.animator.slide_in_right)
                         .replace(R.id.activity_api_bottom_container, EarchFragment())
                         .commitAllowingStateLoss()
                     true
@@ -23,6 +25,7 @@ class ApiBottomActivity : AppCompatActivity() {
                 R.id.bottom_view_mars -> {
 
                     supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.animator.slide_in_left, R.animator.slide_in_right)
                         .replace(R.id.activity_api_bottom_container, MarsFragment())
                         .commitAllowingStateLoss()
                     true
@@ -30,6 +33,7 @@ class ApiBottomActivity : AppCompatActivity() {
                 R.id.bottom_view_weather -> {
 
                     supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.animator.slide_in_left, R.animator.slide_in_right)
                         .replace(R.id.activity_api_bottom_container, WeatherFragment())
                         .commitAllowingStateLoss()
                     true

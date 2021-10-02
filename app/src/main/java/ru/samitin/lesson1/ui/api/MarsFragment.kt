@@ -2,6 +2,7 @@ package ru.samitin.lesson1.ui.api
 
 import android.os.Bundle
 import android.view.LayoutInflater
+
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -13,8 +14,7 @@ import com.google.android.material.textview.MaterialTextView
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentMarsBinding
 import ru.samitin.lesson1.repository.MarsPhotosServerResponseData
-import ru.samitin.lesson1.repository.MarsServerResponseData
-import ru.samitin.lesson1.utils.CustomImageView
+import ru.samitin.lesson1.utils.zoomImageView
 import ru.samitin.lesson1.viewModel.AppState
 import ru.samitin.lesson1.viewModel.OneBigFatViewModel
 
@@ -71,12 +71,16 @@ class MarsFragment : Fragment(){
         for (marsPhoto in serverResponseData.photos!!) {
             val dateText = MaterialTextView(requireContext())
             dateText.text = "Дата земли : ${marsPhoto.earth_date}"
-            val image = CustomImageView(requireContext())
+            val image:AppCompatImageView =
+                LayoutInflater.from(requireContext()).inflate(R.layout.my_image,binding.conteinerMarsPhotos,false) as AppCompatImageView
+            
 
-            //image.layoutParams.width=200
             image.load(marsPhoto.imgSrc){
                 error(R.drawable.ic_load_error_vector)
                 placeholder(R.drawable.progres_image_animation)
+            }
+            image.setOnClickListener {
+                zoomImageView(it as AppCompatImageView)
             }
             binding.conteinerMarsPhotos.addView(image)
             binding.conteinerMarsPhotos.addView(dateText)
@@ -88,3 +92,5 @@ class MarsFragment : Fragment(){
         _binding=null
     }
 }
+
+

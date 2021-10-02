@@ -118,10 +118,7 @@
         app:layout_constraintTop_toBottomOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <include
-        android:id="@+id/include_layout"
-        layout="@layout/bottom_sheet_layout"
-        android:visibility="gone"/>
+
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"

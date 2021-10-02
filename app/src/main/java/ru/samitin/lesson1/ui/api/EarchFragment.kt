@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import ru.samitin.lesson1.BuildConfig
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.databinding.FragmentEarchBinding
+import ru.samitin.lesson1.utils.zoomImageView
 import ru.samitin.lesson1.view.MainActivity
 import ru.samitin.lesson1.viewModel.AppState
 import ru.samitin.lesson1.viewModel.OneBigFatViewModel
@@ -61,15 +62,18 @@ class EarchFragment :Fragment() {
                         "/png/" +
                         "$image" +
                         ".png?api_key=${BuildConfig.NASA_API_KEY}"
-                binding.customImageView.load(url)
 
+                binding.customImageView.load(url)
+                binding.customImageView.setOnClickListener{
+                    zoomImageView(binding.customImageView)
+                }
             }
         }
     }
 
 
 
-    private fun showAVideoUrl(videoUrl: String) = with(binding) {
+   /* private fun showAVideoUrl(videoUrl: String) = with(binding) {
         customImageView.visibility = View.GONE
         videoOfTheDay.visibility = View.VISIBLE
         videoOfTheDay.text = "Сегодня у нас без картинки дня, но есть  видео дня! " +
@@ -80,7 +84,7 @@ class EarchFragment :Fragment() {
             }
             startActivity(i)
         }
-    }
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()

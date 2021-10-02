@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import ru.samitin.lesson1.R
 import ru.samitin.lesson1.view.chips.MY_THEME_KEY
@@ -33,8 +34,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState==null){
-            supportFragmentManager.beginTransaction().
-                    replace(R.id.container,PODFragment.newInstance())
+            supportFragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+              // .setCustomAnimations(R.animator.slide_in_left, R.animator.slide_in_right)
+                .replace(R.id.container,PODFragment.newInstance())
                 .commitNow()
         }
     }
